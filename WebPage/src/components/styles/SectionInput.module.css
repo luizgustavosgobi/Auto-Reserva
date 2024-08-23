@@ -1,0 +1,96 @@
+.SectionInput {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+
+    & form {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    & form button {
+        background-color: var(--color-purple-500);
+        color: var(--color-gray-50);
+        border-radius: 7px;
+        border: none;
+        padding: 0.5rem;
+        font-size: 1rem;
+        font-weight: bolder;
+        cursor: pointer;
+    }
+
+    & form button:hover {
+        background-color: var(--color-purple-600);
+    }
+
+    & form input:disabled, & form button:disabled {
+        cursor: not-allowed;
+    } 
+
+    & form button:disabled, form button:hover:disabled{
+        background-color: var(--color-purple-500);
+    }
+
+    & .allDays:has(> div.days) {
+        padding: 0.7rem;
+    }
+
+    & .allDays {
+        background-color: var(--color-gray-800);
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    & .days {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 0.5rem;
+        align-items: center;
+        font-size: 1.15rem;
+        background-color: var(--color-gray-900);
+        padding: 0.4rem;
+        border-radius: 5px;
+    }
+
+    
+    & .days li::marker {
+        content: '\2022  ';
+    }
+
+    & div.allDays:has(> div.days) {
+        padding: 0.7rem;
+    }
+
+    & input[type="date"]::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        filter: invert(0);
+    }
+
+    & .removeButton {
+        background-color: rgb(223, 52, 52);
+        color: var(--color-gray-50);
+        border-radius: 7px;
+        border: none;
+        padding: 0.5rem;
+        font-size: 1rem;
+        font-weight: bolder;
+    }
+
+    & .removeButton:hover {
+        cursor: pointer;
+        background-color: rgb(187, 37, 37);
+    }
+
+    .error {
+        outline: 1px solid red;
+    }
+
+    .error:focus {
+        outline: 1px solid red;
+    }
+}

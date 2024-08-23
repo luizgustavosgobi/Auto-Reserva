@@ -1,0 +1,152 @@
+.userTable_container {
+    height: 400px;
+    width: 100%;
+}
+
+.containerDelete {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.containerDelete .confirmDelete {
+    width: 30rem;
+    height: 15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 1.2rem;
+    border-radius: .8rem;
+    background-color: var(--color-gray-600);
+    border: 1.5px solid var(--color-purple-500);
+}
+
+.buttonsDelete button {
+    width: 100%;
+    padding: 0.4rem;
+    border-radius: 5px;
+    border: none;
+    font-size: medium;
+    font-weight: 600;
+    color: var(--color-gray-50);
+    cursor: pointer;
+}
+
+.confirmDelete .buttonsDelete {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+
+    & button:nth-child(1) {
+        background-color: var(--color-gray-300);
+    }
+
+    & button:nth-child(1):hover {
+        background-color: var(--color-gray-400);
+    }
+
+    & button:nth-child(2) {
+        background-color: rgb(223, 60, 60);
+    }
+
+    & button:nth-child(2):hover {
+        background-color: rgb(175, 52, 52);
+    }
+}
+
+.confirmDelete .userData {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .8rem;
+    box-shadow: inset 0 0 4px 0 var(--color-purple-100);
+    border-radius: 8px;
+    margin-block: 1rem;
+    gap: 1rem;
+
+    & img {
+        height: 5rem;
+        width: 5rem;
+        border-radius: 15px;
+        object-fit: cover;
+    }
+
+    & p {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+}
+
+.actions,
+.actions a {
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    position: relative;
+}
+
+.loading {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: transparent;
+    border-left: 4px solid rgb(0, 217, 255);
+    animation: infinite linear 1s spin;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.MuiDataGrid-row img {
+    object-fit: cover;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+}
+
+.MuiDataGrid-menuList,
+.MuiDataGrid-filterPanelContainer {
+    background-color: var(--color-gray-500);
+    border: 1px solid var(--color-purple-50);
+}
+
+.even { background-color: var(--color-gray-600); }
+
+.odd { background-color: var(--color-gray-700); }
+
+.delUser,
+.editUser {
+    padding: 7px;
+    border-radius: 50%;
+}
+
+.delUser:hover, .editUser:hover {
+    cursor: pointer;
+    background-color: rgb(77, 73, 73);
+}
+
+@media only screen and (max-width: 425px) {
+    .userTable_container {
+        width: 90vw;
+    }
+
+    .containerDelete .confirmDelete {
+        width: 20rem;
+        height: 18rem;
+    }
+
+    .MuiDataGrid {
+        width: 90%;
+    }
+}

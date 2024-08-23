@@ -1,0 +1,232 @@
+:where(.LoginForm, .LoginForm .Form, .main) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main {
+    padding: 4rem;
+}
+
+.LoginForm {
+    background-color: var(--color-gray-600);
+    border-radius: 1rem;
+    padding: 2rem;
+    gap: 1rem;
+    padding-bottom: 2.3rem;
+    box-shadow: inset 0 0 4px;
+
+    & h1 {
+        font-size: xx-large;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    & a {
+        text-decoration: none;
+        font-size: medium;
+        font-weight: bold;
+        color: var(--color-purple-300);
+        align-self: self-end;
+        margin-top: .2rem;
+    }
+
+    & a:hover {
+        color: var(--color-purple-400);
+    }
+
+}
+
+.Form {
+    & label {
+        align-self: flex-start;
+        color: var(--color-gray-100);
+        font-size: medium;
+        font-weight: bold;
+    }
+
+    & input {
+        background-color: var(--color-gray-400);
+        border: none;
+        border-radius: 0.5rem;
+        font-size: large;
+        padding: 0.5rem;
+        width: 20rem;
+        caret-color: var(--color-purple-300);
+        color: var(--color-gray-50);
+        padding-left: 40px;
+    }
+
+    & input:focus,
+    & button:focus {
+        outline: 1px solid var(--color-gray-50);
+        outline-offset: -1px;
+    }
+
+    & input::placeholder {
+        color: var(--color-gray-200);
+    }
+
+    & input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px var(--color-gray-400) inset;
+        -webkit-text-fill-color: aliceblue;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+
+    & button {
+        background-color: var(--color-purple-500);
+        border: none;
+        border-radius: .5rem;
+        color: var(--color-gray-50);
+        font-size: large;
+        font-weight: bold;
+        padding: 0.5rem;
+        width: 100%;
+        margin-top: 1rem;
+        cursor: pointer;
+    }
+    & button:hover { background-color: var(--color-purple-600); }
+    
+    & button:disabled {
+        display: grid;
+        place-items: center;
+        background-color: var(--color-purple-600);
+        color: var(--color-gray-50);
+        cursor: not-allowed;
+    }
+}
+
+div:has(#eye) {
+    position: relative;
+}
+
+#eye {
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.user {
+    background-color: var(--color-gray-700);
+    padding: 1rem;
+    border-radius: 20px;
+    gap: 1rem;
+    width: fit-content;
+    display: flex;
+    align-self: center;
+    margin-bottom: 1rem;
+
+    & img {
+        border-radius: 20px;
+        width: 6rem;
+        height: 6rem;
+        object-fit: cover
+    }
+
+    & div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: flex-start;
+        text-align: start;
+        font-size: large;
+        font-weight: 600;
+    }
+}
+
+.check {
+    display: flex;
+    gap: 0.5rem;
+    margin-block: 0.1rem 0.6rem;
+
+    & input[type="checkbox"] {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: 0.5rem;
+        accent-color: var(--color-purple-500);
+        margin: 0;
+    }
+
+    & input[type="checkbox"]:focus {
+        outline: none;
+    }
+}
+
+.inputIcon {
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.inputIcon svg:first-of-type {
+    padding: 7px;
+    position: absolute;
+}
+
+.boxInfo, .noEmail {
+    font-size: 1.125rem;
+    padding: 1rem;
+    border-radius: 10px;
+    width: fit-content;
+    margin: auto;
+    margin-top: 3rem;
+
+    & span { font-size: calc(inherit + 10rem); }
+}
+
+.boxInfo {
+    background-color: var(--color-purple-500);
+
+    & span { color: rgb(0, 217, 255); }
+}
+
+.noEmail {
+    background-color: rgb(201, 31, 31);
+    
+    & span { color: white; }
+}
+    
+.inputGroup {
+    display: grid;
+    margin-bottom: 1rem;
+
+    & .errorInput{
+        color: red;
+        font-size: medium;
+        word-break: keep-all;
+        width: fit-content;
+        max-width: 20rem;
+    }
+}
+
+.loading {
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    background-color: transparent;
+    border-left: 2.5px solid rgb(0, 217, 255);
+    animation: infinite linear 1s spin;
+}
+
+@keyframes spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media only screen and (max-width: 425px) {
+    .LoginForm {
+        padding: 1.5rem;
+        padding-bottom: 1.7rem;
+
+        & .inputGroup, & .inputGroup input{ width: 16.5rem; }
+
+        & .errorInput{ width: 16rem; }
+
+        h1 { font-size: 28.5px; } 
+    }
+    
+    .boxInfo { width: 21rem; }
+}

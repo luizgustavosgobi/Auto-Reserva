@@ -1,0 +1,139 @@
+.wrapper {
+    padding: 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .8rem;
+
+    & h2 {
+        margin-block: .6rem;
+    }
+
+    & #userName {
+        font-size: 1.7rem;
+        font-weight: bold;
+        color: var(--color-purple-600);
+    }
+
+    & input {
+        cursor: pointer;
+        background-color: var(--color-gray-800);
+        color: var(--color-gray-100);
+        border-radius: 5px;
+        border: none;
+        padding: 0.5rem;
+        font-size: 1rem;
+        width: 100%;
+        color-scheme: dark;
+    }
+
+    & input:focus {
+        outline: 1px solid var(--color-purple-500);
+    }
+
+    & .checkboxInput {
+        accent-color: var(--color-purple-500);
+        height: 18px;
+        width: 18px;
+        outline: 0;
+    }
+
+    & .infoMessage {
+        display: flex;
+        justify-content: left;
+        margin-left: 1rem;
+        margin-top: 0.2rem;
+        color: rgb(221, 218, 218);
+    }
+
+    & section {
+        background-color: var(--color-gray-700);
+        border-radius: 10px;
+        padding: 1rem;
+        width: 100%;
+    }
+}
+
+.alterDays {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.6rem;
+    background-color: var(--color-gray-500);
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.error, .error:focus { outline: 1px solid red; }
+
+#saveButton {
+    background-color: rgb(43, 150, 70, 1);
+    color: var(--color-gray-50);
+    border-radius: 7px;
+    border: none;
+    padding: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: bolder;
+    cursor: pointer;
+    grid-column: 2/3;
+    width: 85%;
+    margin: auto;
+}
+
+#saveButton:hover { background-color: rgb(35, 128, 58); }
+
+#saveButton:disabled {
+    display: grid;
+    cursor: not-allowed;
+    place-items: center;
+    background-color: rgb(31, 119, 53);
+}
+
+.emailAlert {
+    text-decoration: none;
+    color: var(--color-gray-50);
+    background-color: var(--color-purple-500);
+    font-size: .9rem;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.emailAlert:hover { background-color: var(--color-purple-700); }
+
+#emailAlert {
+    margin-block: .6rem;
+    font-size: 1.15rem;
+}
+
+.iconDays {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .75rem;
+}
+
+@media only screen and (max-width: 425px) {
+    .wrapper h2 { font-size: 21px; }
+
+    .infoMessage { 
+        text-align: left;
+        font-size: smaller;
+    }
+
+    .alterDays { grid-template-columns: 1fr; }
+
+    #saveButton { 
+        grid-column: 1/1;
+        width: 100%;
+    }
+
+    #emailAlert {
+        font-size: .9rem;
+        margin-block: .9rem;
+    }
+
+    .emailAlert { margin-top: 10px; }
+
+    .iconDays { gap: .5rem; }
+}

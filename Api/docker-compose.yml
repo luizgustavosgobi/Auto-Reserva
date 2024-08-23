@@ -1,0 +1,44 @@
+services:
+  nginx:
+    container_name: nginx-reserva
+    build: ./Nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/autoreserva/keys:/var/ssl:ro
+    env_file:
+      - /var/autoreserva/env/nginx.env
+
+
+  database:
+    container_name: postgres-reserva
+    build: ./Postgress
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=reserva
+    env_file:
+      - /var/autoreserva/env/database.env
+
+  api:
+    container_name: api-reserva
+    depends_on:
+      - database
+      - nginx
+    build: ./Server
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3000
+    env_file:
+      - /var/autoreserva/env/api.env
+
+volumes:
+  db_data:

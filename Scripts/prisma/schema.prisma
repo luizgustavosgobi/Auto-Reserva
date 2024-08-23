@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  prontuario   String  @id
+  email        String? @unique
+  name         String
+  password     String?
+  accessCode   String  @unique @default(cuid())
+  photo        String
+  isAdm        Boolean @default(false)
+  reciveEmails Boolean @default(true)
+  funds        Float   @default(0.0)
+  days         days?
+}
+
+model days {
+  prontuario  String   @id
+  extraDays   String[] @db.Char(10)
+  deletedDays String[] @db.Char(10)
+  daysOfWeek  String[]
+  reserve     Boolean  @default(true)
+
+  user user @relation(fields: [prontuario], references: [prontuario])
+}
