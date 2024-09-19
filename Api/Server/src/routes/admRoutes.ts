@@ -1,17 +1,19 @@
-import { FastifyInstance, FastifyReply } from "fastify"
 import { prisma } from "../lib/prisma"
 import { verifyToken } from "../lib/verifyToken"
 import { createUserSchema, deleteUserSchema, editUserDataSchema, foundsSchema, tokenSchema } from "../lib/schemas"
+import { Role } from "@prisma/client"
 
-async function isAdmin(prontuario: string, res: FastifyReply) {
-  return await prisma.user.findUnique({
+async function isAdmin(prontuario: string): Promise<Number | Boolean> {
+  const user = await prisma.user.findUnique({
     where: {
       prontuario
     },
     select: {
-      isAdm: true
+      role: true
     }
-  }).catch(() => { return res.status(401).send({ message: "Internal Server Error" }) })
+  }).catch(() => { return -1 })
+
+  return user.role == "ADMIN"
 }
 
 export async function admRoutes(app: FastifyInstance) {
@@ -19,7 +21,11 @@ export async function admRoutes(app: FastifyInstance) {
     const token = req.headers.authorization?.replace('Bearer ', '') as string
 
     const user = verifyToken(token)
-    await isAdmin(user.prontuario, res)
+    if (user == -1) return res.status(500).send({ message: "Invalid Token" })
+
+    const isUserAdmin = await isAdmin(user.prontuario)
+    if (isUserAdmin == -1) return res.status(500).send({ message: "Internal Server Error" })
+    if (!isUserAdmin) return res.status(403).send({ message: "Acesso Negado" })
 
     return await prisma.user.findMany({
       select: {
@@ -27,7 +33,7 @@ export async function admRoutes(app: FastifyInstance) {
         name: true,
         email: true,
         photo: true,
-        isAdm: true,
+        role: true,
         reciveEmails: true,
         accessCode: true,
       }
@@ -40,9 +46,13 @@ export async function admRoutes(app: FastifyInstance) {
     const token = req.headers.authorization?.replace('Bearer ', '') as string
 
     const user = verifyToken(token)
-    await isAdmin(user.prontuario, res)
+    if (user == -1) return res.status(500).send({ message: "Invalid Token" })
+      
+    const isUserAdmin = await isAdmin(user.prontuario)
+    if (isUserAdmin == -1) return res.status(500).send({ message: "Internal Server Error" })
+    if (!isUserAdmin) return res.status(403).send({ message: "Acesso Negado" })
 
-    await prisma.dias.deleteMany({
+    await prisma.days.deleteMany({
       where: {
         prontuario
       }
@@ -59,29 +69,31 @@ export async function admRoutes(app: FastifyInstance) {
   })
 
   app.post('/user', { schema: createUserSchema }, async (req, res) => {
-    const { prontuario, name, photo, isAdm } = req.body as { prontuario: string, name: string, photo: string, isAdm: boolean }
+    const { prontuario, name, photo, role } = req.body as { prontuario: string, name: string, photo: string, role: string }
     const token = req.headers.authorization?.replace('Bearer ', '') as string
 
     const user = verifyToken(token)
-    await isAdmin(user.prontuario, res)
+    if (user == -1) return res.status(500).send({ message: "Invalid Token" })
+      
+    const isUserAdmin = await isAdmin(user.prontuario)
+    if (isUserAdmin == -1) return res.status(500).send({ message: "Internal Server Error" })
+    if (!isUserAdmin) return res.status(403).send({ message: "Acesso Negado" })
 
-    const existingUser = await prisma.user.findUnique({
-      where: { prontuario },
-    });
-
-    if (existingUser) {
-      return res.status(400).send({ message: 'Usuário já criado' });
+    if (await prisma.user.findUnique({ where: { prontuario } })) {
+      return res.status(400).send({ message: 'Usuário já existe' });
     }
+
+    if (!Object.values(Role).includes(role as Role)) return res.status(400).send({message: "Role inválida"})
 
     await prisma.user.create({
       data: {
         prontuario,
         name,
         photo,
-        isAdm,
+        role: role as Role
       }
     })
-    await prisma.dias.create({
+    await prisma.days.create({
       data: {
         prontuario
       }
@@ -91,7 +103,17 @@ export async function admRoutes(app: FastifyInstance) {
   })
 
   app.put('/user/editUser', { schema: editUserDataSchema }, async (req, res) => {
-    const { prontuario, name, photo, isAdm, accessCode } = req.body as { prontuario: string, name: string, photo: string, isAdm: boolean, accessCode: string }
+    const { prontuario, name, photo, role, accessCode } = req.body as { prontuario: string, name: string, photo: string, role: string, accessCode: string }
+    const token = req.headers.authorization?.replace('Bearer ', '') as string
+
+    const user = verifyToken(token)
+    if (user == -1) return res.status(500).send({ message: "Invalid Token" })
+      
+    const isUserAdmin = await isAdmin(user.prontuario)
+    if (isUserAdmin == -1) return res.status(500).send({ message: "Internal Server Error" })
+    if (!isUserAdmin) return res.status(403).send({ message: "Acesso Negado" })
+
+    if (!Object.values(Role).includes(role as Role)) return res.status(400).send({message: "Role inválida"})
 
     await prisma.user.update({
       where: {
@@ -101,7 +123,7 @@ export async function admRoutes(app: FastifyInstance) {
         prontuario,
         name,
         photo,
-        isAdm
+        role: role as Role
       }
     }).catch((e) => { return res.status(500).send({ message: 'Internal Server Error' }) })
 
@@ -114,7 +136,11 @@ export async function admRoutes(app: FastifyInstance) {
     const token = req.headers.authorization?.replace('Bearer ', '') as string
 
     const user = verifyToken(token)
-    await isAdmin(user.prontuario, res)
+    if (user == -1) return res.status(500).send({ message: "Invalid Token" })
+      
+    const isUserAdmin = await isAdmin(user.prontuario)
+    if (isUserAdmin == -1) return res.status(500).send({ message: "Internal Server Error" })
+    if (!isUserAdmin) return res.status(403).send({ message: "Acesso Negado" })
 
     const currentFunds = await prisma.user.findUnique({
       where: {
