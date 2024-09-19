@@ -1,3 +1,8 @@
+enum Role {
+  USER
+  ADMIN
+}
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,10 +19,11 @@ model user {
   password     String?
   accessCode   String  @unique @default(cuid())
   photo        String
-  isAdm        Boolean @default(false)
   reciveEmails Boolean @default(true)
   funds        Float   @default(0.0)
-  days         days?
+
+  role Role  @default(USER)
+  days days?
 }
 
 model days {

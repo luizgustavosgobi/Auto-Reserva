@@ -29,11 +29,9 @@ export async function login(app: FastifyInstance) {
     return res.status(200).send({ token })
   })
 
-  //
-
   app.post('/accounts/firstAccess', { schema: firstAccessSchema }, async (req, res) => {
     const { prontuario, accessCode, password } = req.body as { prontuario: string, accessCode: string, password: string }
-
+  
     const user = await prisma.user.findUnique({
       where: {
         prontuario
@@ -43,6 +41,7 @@ export async function login(app: FastifyInstance) {
       }
     }).catch(() => { return res.status(500).send({ message: 'Internal Server Error' }) })
 
+    if (!user) return res.status(401).send({ message: 'Usuário inexistente' })
     if (user?.accessCode !== accessCode) { return res.status(401).send({ message: 'Informações Incorretas' }) }
 
     bcrypt.genSalt(10, (err, salt) => {
@@ -77,11 +76,11 @@ export async function validateToken(app: FastifyInstance) {
         name: true,
         prontuario: true,
         photo: true,
-        isAdm: true,
+        role: true,
         email: true,
         reciveEmails: true,
         funds: true,
-        Dias: {
+        days: {
           select: {
             reserve: true,
             extraDays: true,

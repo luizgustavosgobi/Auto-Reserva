@@ -6,5 +6,9 @@ type Token = {
 }
 
 export function verifyToken(token: string) {
-  return app.jwt.verify(token) as Token
+  try {
+    return app.jwt.verify(token) as Token
+  } catch {
+    return -1
+  }
 }

@@ -9,8 +9,9 @@ export async function updateUserPreferences(app: FastifyInstance) {
         const token = req.headers.authorization?.replace('Bearer ', '') as string
 
         const user = verifyToken(token)
+        if (user == -1) return res.status(500).send({ message: "Invalid Token" })
 
-        await prisma.dias.update({
+        await prisma.days.update({
             where: {
                 prontuario: user.prontuario
             },
@@ -30,6 +31,7 @@ export async function updateUserPreferences(app: FastifyInstance) {
         const token = req.headers.authorization?.replace('Bearer ', '') as string
 
         const user = verifyToken(token)
+        if (user == -1) return res.status(500).send({ message: "Invalid Token" })
 
         await prisma.user.update({
             where: {
