@@ -1,10 +1,10 @@
+import CustomSwitch from '@/components/CustomSwitch';
 import { Box } from '@mui/material';
+import styles from '@styles/Form.module.css';
 import { Eye, EyeOff, Lock } from "lucide-react";
 import { useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import styles from '../styles/Form.module.css';
 import BaseInput, { BaseInputProps } from "./BaseInput";
-import CustomSwitch from '../CustomSwitch';
 
 export function FormInput(props: BaseInputProps) {
     return <BaseInput {...props} />;

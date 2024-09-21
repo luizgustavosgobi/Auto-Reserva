@@ -1,8 +1,8 @@
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import User from '@/utils/types/User';
 import { useMediaQuery } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
-import User from '../utils/types/User';
 import UserActions from './UserActions';
 import './styles/UserTable.css';
 
@@ -55,9 +55,7 @@ function UserTable(users: { [key: string]: User }) {
             align: 'left',
             valueGetter: (value: GridCellParams) => (value ? value : 'No email registered'),
         }),
-        createColumnDef('isAdm', 'Role', 70, {
-            valueGetter: (value: GridCellParams) => (value ? 'Admin' : 'User'),
-        }),
+        createColumnDef('role', 'Role', 70),
         createColumnDef('accessCode', 'Access Code', 150, {
             sortable: false,
             filterable: false,

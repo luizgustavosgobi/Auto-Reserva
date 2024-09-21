@@ -1,7 +1,7 @@
+import User from '@/utils/types/User';
+import styles from '@styles/Form.module.css';
 import { ElementType } from 'react';
 import { FieldError, useFormContext } from 'react-hook-form';
-import styles from '../styles/Form.module.css';
-import User from '../../utils/types/User';
 
 type registerName = keyof User | 'confirmPassword' | 'confirmEmail'
 

@@ -1,12 +1,12 @@
+import { OpenAlert, UserContext } from "@/App.tsx";
+import { Form } from "@/components/Form/index.tsx";
+import { emailSchema, EmailSchemaData } from "@/utils/schemas.ts";
+import { getToken } from "@/utils/token";
 import { zodResolver } from "@hookform/resolvers/zod";
+import styles from "@styles/Form.module.css";
 import { Mail } from 'lucide-react';
 import { useContext, useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
-import { OpenAlert, UserContext } from "../App.tsx";
-import { Form } from "../components/Form/index.tsx";
-import styles from "../components/styles/Form.module.css";
-import { getToken } from "../token.ts";
-import { emailSchema, EmailSchemaData } from "../utils/schemas.ts";
 
 function Email() {
     const { email } = useContext(UserContext);

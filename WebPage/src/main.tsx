@@ -10,8 +10,8 @@ import FirstAccess from './pages/FirstAccess';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Users from './pages/adm/Users';
-import CreateUser from './pages/adm/createUser';
-import EditUser from './pages/adm/editUser';
+import CreateUser from './pages/adm/userForm/createUser';
+import EditUser from './pages/adm/userForm/editUser';
 
 const router = createBrowserRouter([
   {

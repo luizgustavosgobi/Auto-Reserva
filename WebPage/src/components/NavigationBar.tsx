@@ -1,8 +1,8 @@
+import { UserContext } from '@/App.tsx';
+import { eraseCookie } from '@/utils/token';
 import { AlignJustify, Home, LogOut, Mail, UserCog, UserPlus } from 'lucide-react';
 import React, { cloneElement, ReactElement, useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { UserContext } from '../App.tsx';
-import { eraseCookie } from '../token.ts';
 import styles from './styles/NavigationBar.module.css';
 
 type NavigationBarProps = {
@@ -16,7 +16,7 @@ type RenderIconProps = {
 }
 
 function NavigationBar({ divOpacity, setDivOpacity }: NavigationBarProps) {
-    const { prontuario, name, photo, isAdm } = useContext(UserContext)!
+    const { prontuario, name, photo, role } = useContext(UserContext)!
     const { pathname } = useLocation();
     const [menuBar, setMenuBar] = useState(false)
     const [isClosing, setIsClosing] = useState(false);
@@ -46,7 +46,7 @@ function NavigationBar({ divOpacity, setDivOpacity }: NavigationBarProps) {
     const links = [
         { path: '/', icon: <Home/>, label: 'Página Inicial' },
         { path: '/change-email', icon: <Mail/>, label: 'Alterar Email' },
-        ...(isAdm ? [
+        ...(role === 'ADMIN' ? [
             { path: '/adm', icon: <UserCog/>, label: 'Administrador' },
             { path: '/adm/create-user', icon: <UserPlus/>, label: 'Adicionar Usuário' },
         ] : []),

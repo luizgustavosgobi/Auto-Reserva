@@ -1,6 +1,6 @@
+import FilledAlert from '@/components/FilledAlert';
+import styles from '@styles/Form.module.css';
 import { FieldValues, FormProvider, SubmitHandler, UseFormReturn } from 'react-hook-form';
-import FilledAlert from '../FilledAlert';
-import styles from '../styles/Form.module.css';
 
 type FormRootProps<T extends FieldValues> = {
     title: 'Cadastro' | 'Login' | 'Alterar Email' | 'Adicionar Usuário' | 'Editar Usuário',

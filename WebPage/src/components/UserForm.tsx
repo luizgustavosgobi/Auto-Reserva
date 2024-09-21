@@ -1,11 +1,11 @@
+import { userFormSchema, UserFormSchemaData } from "@/utils/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import styles from "@styles/Form.module.css";
 import { Camera, Contact, User } from 'lucide-react';
 import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
-import { Form } from "../../components/Form";
-import styles from "../../components/styles/Form.module.css";
-import { userFormSchema, UserFormSchemaData } from "../../utils/schemas";
+import { Form } from "./Form";
 
 type UserFormProps = {
     hasUserData: boolean;
@@ -14,12 +14,12 @@ type UserFormProps = {
 }
 
 const UserForm = forwardRef(({ hasUserData, alertMessage, onSubmit }: UserFormProps, ref) => {
-    let name = '', prontuario = '', photo = '', isAdm = false;
+    let name = '', prontuario = '', photo = '', role = 'USER';
 
     if (hasUserData) {
         const { state } = useLocation();
         const user = state?.user || {};
-        ({ name = '', prontuario = '', photo = '', isAdm = false } = user);
+        ({ name = '', prontuario = '', photo = '', role = 'USER' } = user);
     }
 
     useEffect(() => { document.title = hasUserData ? 'Adm | Editar Usuário' : 'Adm | Adicionar Usuário' }, []);
@@ -30,7 +30,7 @@ const UserForm = forwardRef(({ hasUserData, alertMessage, onSubmit }: UserFormPr
             name,
             prontuario,
             photo,
-            isAdm
+            role
         }
     });
 
@@ -73,7 +73,7 @@ const UserForm = forwardRef(({ hasUserData, alertMessage, onSubmit }: UserFormPr
                 icon={Camera}
             />
 
-            <Form.SwitchInput nameAndLabel={['isAdm', 'Administrador']} />
+            <Form.SwitchInput nameAndLabel={['role', 'Administrador']} />
 
             <Form.Button />
             <Form.Link to="/adm" />

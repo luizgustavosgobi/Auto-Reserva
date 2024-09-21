@@ -1,18 +1,17 @@
+import { OpenAlert, UserContext } from '@/App.tsx';
+import CustomSwitch from '@/components/CustomSwitch.tsx';
+import FilledAlert from '@/components/FilledAlert.tsx';
+import Section from '@/components/Section.tsx';
+import SectionInput from '@/components/SectionInput.tsx';
+import { getToken } from '@/utils/token';
+import classes from '@styles/Form.module.css';
 import { CalendarDays } from 'lucide-react';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { OpenAlert, UserContext } from '../App.tsx';
-import CustomSwitch from '../components/CustomSwitch.tsx';
-import FilledAlert from '../components/FilledAlert.tsx';
-import Section from '../components/Section.tsx';
-import SectionInput from '../components/SectionInput.tsx';
-import classes from '../components/styles/Form.module.css';
-import { getToken } from '../token.ts';
 import styles from './styles/home.module.css';
 
 function Home() {
     useEffect(() => { document.title = 'Auto Reserva' }, [])
-
     const { name, email, Dias } = useContext(UserContext);
 
     const { setOpen } = useContext(OpenAlert);
@@ -20,7 +19,8 @@ function Home() {
     const [deletedDays, setDeletedDays] = useState<string[]>([]);
     const [message, setMessage] = useState<[string, boolean]>(['', false]);
     const [reserve, setReserve] = useState<boolean | null>(null);
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const shortName = name?.split(' ');
 
     useEffect(() => {
         if (Dias) {
@@ -42,11 +42,12 @@ function Home() {
 
     const checkboxRefs = weekDaysList.map(() => useRef<HTMLInputElement | null>(null));
 
-    async function savePreferences() {
+    async function savePreferences({toggleReserve = false}: {toggleReserve: boolean}) {
         setIsSubmitting(true)
         setMessage(['', false])
-        const newReserve = !reserve;
-        setReserve(newReserve)
+
+        const newReserve = toggleReserve ? !reserve : reserve;
+        toggleReserve && setReserve(newReserve)
 
         const daysOfWeek = checkboxRefs
             .filter(checkbox => checkbox.current?.checked)
@@ -89,13 +90,13 @@ function Home() {
             {name &&
                 <div>
                     <h2>Seja bem vindo
-                        <span id={styles.userName}>{` ${name}`}</span>
+                        <span id={styles.userName}>{` ${shortName[0]} ${shortName.pop()}`}</span>
                         <br />
 
                         Deseja Reservar?
                         <CustomSwitch
                             checked={reserve || false}
-                            onChange={() => savePreferences()}
+                            onChange={() => savePreferences({toggleReserve: true})}
                         />
                     </h2>
                 </div>
@@ -152,8 +153,8 @@ function Home() {
                         <button
                             id={styles.saveButton}
                             disabled={isSubmitting || !reserve}
-                            onClick={savePreferences}
-                            >
+                            onClick={() => savePreferences}
+                        >
                             {isSubmitting ? <div className={classes.loading}></div> : "Salvar"}
                         </button>
                     </div>
