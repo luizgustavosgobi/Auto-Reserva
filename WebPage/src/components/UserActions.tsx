@@ -1,11 +1,11 @@
+import { OpenAlert } from '@/App';
+import { getToken } from '@/utils/token';
+import User from '@/utils/types/User';
 import { Tooltip } from '@mui/material';
 import { Edit, Trash2 } from 'lucide-react';
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
-import { OpenAlert } from '../App';
-import { getToken } from '../token';
-import User from '../utils/types/User';
 import FilledAlert from './FilledAlert';
 import styles from "./styles/NavigationBar.module.css";
 import './styles/UserTable.css';
@@ -51,7 +51,7 @@ function UserActions({ user, rowsState }: UserActionsProps) {
         finally {setLoading(false); }
     }
 
-    const { name, photo, prontuario, accessCode, isAdm } = delUser ?? {};
+    const { name, photo, prontuario, accessCode, role } = delUser ?? {};
 
     return (
         <>
@@ -67,7 +67,7 @@ function UserActions({ user, rowsState }: UserActionsProps) {
                                     <img src={photo} alt="img User" />
                                     <div style={{ textAlign: "left" }}>
                                         <p>{name}</p>
-                                        <span style={{ fontSize: '1.1rem' }}>{isAdm ? "Admin" : "User"}</span>
+                                        <span style={{ fontSize: '1.1rem' }}>{role}</span>
                                     </div>
                                 </div>
                                 <div className="buttonsDelete">

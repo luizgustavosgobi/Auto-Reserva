@@ -38,6 +38,7 @@ function SectionInput({ days, setDays, otherElementDay, reserve }: SectionInputP
         }
 
         setDays([...days, formattedDate]);
+        setDate('');
     }
 
     return (
@@ -47,6 +48,7 @@ function SectionInput({ days, setDays, otherElementDay, reserve }: SectionInputP
                     type="date"
                     maxLength={8}
                     onChange={(e) => setDate(e.target.value)}
+                    value={date}
                     className={error ? styles.error : ''}
                     disabled={!reserve}
                 />

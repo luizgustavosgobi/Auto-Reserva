@@ -1,7 +1,7 @@
-import UserForm from "./UserForm";
-import { OpenAlert } from "../../App";
-import { UserFormSchemaData } from "../../utils/schemas";
-import { getToken } from "../../token";
+import { OpenAlert } from "@/App";
+import UserForm from "@/components/UserForm";
+import { UserFormSchemaData } from "@/utils/schemas";
+import { getToken } from "@/utils/token";
 import { useContext, useRef, useState } from "react";
 
 function CreateUser() {

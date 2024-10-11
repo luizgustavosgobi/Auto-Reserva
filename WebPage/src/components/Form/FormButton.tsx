@@ -1,6 +1,6 @@
-import { useFormContext } from 'react-hook-form'
+import styles from '@styles/Form.module.css'
 import { ButtonHTMLAttributes } from 'react'
-import styles from '../styles/Form.module.css'
+import { useFormContext } from 'react-hook-form'
 
 type FormButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
 

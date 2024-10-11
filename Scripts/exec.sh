@@ -7,4 +7,4 @@ set -a
 source "$envDir"
 set +a
 
-node "$DIR/src/main.js"
+node "$DIR/src/main.js" >> echo log.txt

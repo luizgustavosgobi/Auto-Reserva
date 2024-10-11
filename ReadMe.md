@@ -20,20 +20,20 @@ O **Auto Reserva** é um sistema de **reserva de comida** feito para o **SICA** 
 
 - Uma conta no **Netlify** para a hospedagem da página web.
 - **Um servidor VPS** para hospedar a API e o Script.
-- **Um Domínio** para a utilização so SSL no backend. (Caso não queira utilizar SSL, você devera fazer alterações no Nginx para aceitar requisições HTTP).
+- **Um Domínio** para a utilização do SSL no backend. (Caso não queira utilizar SSL, você devera fazer alterações no Nginx para aceitar requisições HTTP).
 - Uma conta no **2Captcha** para a utilização do serviço de solução de captchas **caso necessário**.
 
 ### WebPage
 
-Para a instalação da página web, recomendamos que utilize algum serviço de hospedagem de sites que deem suporte ao **React**, de preferencia algum gratuíto, como a **Netlify**.
+Para a instalação da página web, recomendamos que utilize algum serviço de hospedagem de sites que dê suporte ao **React**, dê preferência a algum gratuito, como a **Netlify**.
 
 <details><summary><b>Instalação com a Netlify</b></summary>
 
 1. Faça o login no site da [Netlify](https://www.netlify.com/).
 
-2. Já no painel de controle, clique em **Add new site**, e depois em **import an existing project**.
+2. No painel de controle, clique em **Add new site**, e depois em **import an existing project**.
 
-3. A netlify vai pedir da onde quer importar o projeto, selecione o ícone do github e faça o login/autorize a netlify a acessar seus repositórios.
+3. A Netlify solicitará de onde você deseja importar o projeto, selecione o ícone do github e faça o login/autorize a Netlify a acessar seus repositórios.
 
 4. Selecione o repositório que você deu o fork do **Auto Reserva**.
 
@@ -46,17 +46,17 @@ Para a instalação da página web, recomendamos que utilize algum serviço de h
 6. Na parte de **Environment variables**, clique em **Add environment variables** e adicione:
 
    - **Key**: `VITE_BASE_URL`
-   - **Value**: `O IP do servidor do BackEnd`
+   - **Value**: `O IP e porta do servidor BackEnd`
 
 </details>
 
 ### API
 
-Para a instalação da API, recomendamos que utilize uma VPS, utilizando o ubunto, como sistema operacional.
+Para a instalação da API, recomendamos que utilize uma VPS, utilizando o Ubuntu, como sistema operacional.
 
 <details><summary><b>Como subir a API na VPS</b></summary>
 
-1.  Clone o repositorio na sua VPS:
+1.  Clone o repositório na sua VPS:
 
     ```sh
     $ git clone https://github.com/luizgustavosgobi/Auto-Reserva.git
@@ -100,19 +100,19 @@ No script, você pode utilizar a mesma VPS da API.
 
 ## Acesso ao sistema
 
-Por padrão, o sistema já vem com um usuario administrador para ter acesso a criação de novos usuarios:
+Por padrão, o sistema já vem com um usuário administrador para ter acesso à criação de novos usuários:
 
-   - **Prontuario**: `0000000`
-   - **AccessCode**: `clzohj9zj000b356bnh0atl53`
+   - **prontuario**: `0000000`
+   - **accessCode**: `clzohj9zj000b356bnh0atl53`
 
-Para acessar esse usuário, na tela de login, clique em **Primeiro Acesso**, e crie uma senha. Depois é só efetuar o login.
+Para acessar esse usuário, na tela de login, clique em **Primeiro Acesso**, e crie uma senha. Depois basta efetuar o login.
 
-Lembre-se de removelo após a criação de um novo usuário adiministrados, a fins de segurança.
+Lembre-se de removê-lo após a criação de um novo usuário adiministrador, a fim de segurança.
 
 <br>
 <br>
 
-<h1 align="center">😎 Contribuições 😎 </h1>
+<h1 align="center">😎 Contribuições 😎</h1>
 
 <a href="https://github.com/luizgustavosgobi/Auto-Reserva/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=luizgustavosgobi/Auto-Reserva" />

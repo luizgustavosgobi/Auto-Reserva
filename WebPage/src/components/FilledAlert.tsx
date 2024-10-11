@@ -1,8 +1,8 @@
+import { OpenAlert } from "@/App";
 import { Alert, Snackbar } from "@mui/material";
 import { useContext, useEffect } from 'react';
 import { createPortal } from "react-dom";
 import { useLocation } from "react-router-dom";
-import { OpenAlert } from "../App";
 
 type FilledAlertProps = {
     success: boolean,

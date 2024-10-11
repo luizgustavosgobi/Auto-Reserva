@@ -1,8 +1,8 @@
+import { UserContext } from "../../App";
+import { getToken } from "@/utils/token";
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../App.tsx";
-import UserTable from "../../components/UserTable.tsx";
-import { getToken } from "../../token.ts";
-import User from "../../utils/types/User.ts";
+import UserTable from "@/components/UserTable.tsx";
+import User from "@/utils/types/User.ts";
 
 function Users() {
     const { prontuario } = useContext(UserContext)!;

@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Footer from "./components/Footer.tsx";
 import Header from "./components/Header.tsx";
-import { validateToken } from "./token.ts";
+import { validateToken } from "./utils/token.ts";
 import User from "./utils/types/User.ts";
 
 export const UserContext = createContext({} as User);
@@ -31,7 +31,7 @@ function App() {
       validateToken().then(data => {
         setUser(data);
 
-        if (pathname.startsWith("/adm") && data.isAdm === false) {
+        if (pathname.startsWith("/adm") && data.role !== 'ADMIN') {
           navigate("/");
         }
       });

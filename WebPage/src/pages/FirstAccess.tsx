@@ -1,11 +1,11 @@
+import { OpenAlert } from "@/App";
+import { Form } from "@/components/Form";
+import { userSchema, UserSchemaData } from "@/utils/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { KeyRound, User } from 'lucide-react';
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import { Form } from "../components/Form";
-import { OpenAlert } from "../App";
-import { userSchema, UserSchemaData } from "../utils/schemas";
 
 function FirstAccess() {
     useEffect(() => { document.title = 'Auto Reserva | Cadastro' }, []);

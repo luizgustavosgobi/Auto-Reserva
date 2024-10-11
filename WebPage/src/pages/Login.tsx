@@ -1,11 +1,11 @@
+import { OpenAlert } from "@/App.tsx";
+import { Form } from "@/components/Form/index.tsx";
+import { loginSchema, LoginSchemaData } from "@/utils/schemas.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from 'lucide-react';
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { Form } from "../components/Form/index.tsx";
-import { OpenAlert } from "../App.tsx";
-import { loginSchema, LoginSchemaData } from "../utils/schemas.ts";
 
 function Login() {
     useEffect(() => { document.title = 'Auto Reserva | Login' }, []);

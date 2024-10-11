@@ -65,7 +65,7 @@ export const userFormSchema = z.object({
     photo: z.string().url().refine(value => value.includes('http'), {
         message: "Invalid url",
     }).or(z.string().length(0)),
-    isAdm: z.boolean()
+    role: z.string()
 })
 
 export type UserFormSchemaData = z.infer<typeof userFormSchema>

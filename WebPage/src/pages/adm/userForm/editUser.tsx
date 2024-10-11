@@ -1,8 +1,8 @@
-import UserForm from "./UserForm";
-import { OpenAlert } from "../../App";
-import { UserFormSchemaData } from "../../utils/schemas";
-import { useLocation, useNavigate } from "react-router-dom";
+import { OpenAlert } from "@/App";
+import { UserFormSchemaData } from "@/utils/schemas";
+import UserForm from "@/components/UserForm";
 import { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function EditUser() {
     const navigate = useNavigate();

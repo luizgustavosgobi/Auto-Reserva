@@ -5,7 +5,7 @@ type User = {
     photo: string,
     password?: string,
     email?: string,
-    isAdm: boolean,
+    role: "USER" | "ADMIN",
     reciveEmails: boolean,
     Dias: Dias
 }
