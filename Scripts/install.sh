@@ -39,11 +39,11 @@ if [[ $option == [yY] || -z $option ]] then
   read -p "Informe a URL do sica de seu campus: " pageURL
   read -p "Informe a chave de API do TwoCaptcha caso necessário: " TwoCaptcha
 
-  if [ ! -d "/var/autoreserva/env" ]; then
-    mkdir -p /var/autoreserva/env
+  if [ ! -d "/etc/autoreserva/env" ]; then
+    mkdir -p /etc/autoreserva/env
   fi
 
-  configFile="/var/autoreserva/env/script.env"
+  configFile="/etc/autoreserva/env/script.env"
   
   echo "NODEMAILER_HOST=$nodemailerHost" > $configFile
   echo "NODEMAILER_PORT=$nodemailerPort" >> $configFile

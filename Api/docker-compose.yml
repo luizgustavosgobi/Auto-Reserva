@@ -7,9 +7,9 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /var/autoreserva/keys:/var/ssl:ro
+      - /etc/autoreserva/keys:/etc/ssl:ro
     env_file:
-      - /var/autoreserva/env/nginx.env
+      - /etc/autoreserva/env/nginx.env
 
   database:
     container_name: postgres-reserva
@@ -18,11 +18,11 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data:/etc/lib/postgresql/data
     environment:
       - POSTGRES_DB=reserva
     env_file:
-      - /var/autoreserva/env/database.env
+      - /etc/autoreserva/env/database.env
 
   api:
     container_name: api-reserva
@@ -37,7 +37,7 @@ services:
       - HOST=0.0.0.0
       - PORT=3000
     env_file:
-      - /var/autoreserva/env/api.env
+      - /etc/autoreserva/env/api.env
 
 volumes:
   db_data:

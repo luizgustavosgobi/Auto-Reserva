@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR="$(dirname "$0")"
-envDir="/var/autoreserva/env/script.env"
+envDir="/etc/autoreserva/env/script.env"
 
 set -a
 source "$envDir"
