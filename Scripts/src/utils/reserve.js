@@ -7,11 +7,32 @@ import qs from "querystring";
 import 'dotenv/config';
 
 export async function reserve(user, captcha) {
-  const response = await axios.post(process.env.PAGE_URL+'/home',
+  const captchaToken = captcha ? getSolvedCaptcha() : "";
+  let response;
+  for (let i=0; i<3;i++) {
+    try {
+      response = makeReserve(captchaToken)
+      break
+    } catch (err) {
+      if (i < 2) {
+        console.log("Erro na hora de reservar! Tentando novamente")
+      } else {
+        console.log(err)
+      }
+    }
+  }
+
+  const alert = new JSDOM(response.data).window.document.querySelectorAll(".alert")[0];
+  const text = alert.textContent.split("\n")[2]
+  return text.split("!")[1].trim()
+}
+
+async function makeReserve(user, captcha) {
+  return await axios.post(process.env.PAGE_URL+'/home',
     qs.stringify({
       csrfmiddlewaretoken: csrftoken.split("=")[1],
       prontuario: user.prontuario,
-      "g-recaptcha-response": captcha ? await getSolvedCaptcha(websiteKey) : "",
+      "g-recaptcha-response": captcha,
     }),
     {
       headers: {
@@ -20,9 +41,4 @@ export async function reserve(user, captcha) {
       },
     }
   )
-
-  const alert = new JSDOM(response.data).window.document.querySelectorAll(".alert")[0];
-  const text = alert.textContent.split("\n")[2]
-  return text.split("!")[1].trim()
 }
-

@@ -24,6 +24,7 @@ for (const user of await getUsers()) {
     console.log(user.name + " - Reservando");
 
     const message = await reserve(user, false);
+
     allReserves += user.name + " - " + message + "<br><br>";
 
     if (user.email && user.reciveEmails) {
