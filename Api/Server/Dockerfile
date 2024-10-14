@@ -4,7 +4,7 @@ WORKDIR /api
 
 COPY . .
 
-RUN mkdir /var/ssl
+RUN mkdir /etc/ssl
 
 RUN apt-get update -y && apt-get install -y openssl
 

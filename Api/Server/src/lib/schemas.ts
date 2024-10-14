@@ -80,9 +80,9 @@ export const createUserSchema = {
       prontuario: { type: 'string', minLength: 7, maxLength: 7 },
       name: { type: 'string' },
       photo: { type: 'string', format: 'url' },
-      isAdm: { type: 'boolean' }
+      role: { type: 'string' }
     },
-    required: ['prontuario', 'name', 'photo', 'isAdm'],
+    required: ['prontuario', 'name', 'photo', 'role'],
     additionalProperties: false
   },
 
@@ -126,10 +126,10 @@ export const editUserDataSchema = {
       prontuario: { type: 'string', minLength: 7, maxLength: 7 },
       name: { type: 'string' },
       photo: { type: 'string', format: 'url' },
-      isAdm: { type: 'boolean' },
+      role: { type: 'string' },
       accessCode: { type: 'string', minLength: 25, maxLength: 25 },
     },
-    required: ['prontuario', 'name', 'photo', 'isAdm', 'accessCode'],
+    required: ['prontuario', 'name', 'photo', 'role', 'accessCode'],
     additionalProperties: false
   },
 }

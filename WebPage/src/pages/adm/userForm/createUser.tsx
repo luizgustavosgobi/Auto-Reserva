@@ -26,7 +26,7 @@ function CreateUser() {
             ? (setMessage(['Usuário adicionado com sucesso!', true]))
             : res.json().then(data => setMessage([data.message, false]));
 
-        if (userFormRef.current) {
+        if (userFormRef.current && res.ok) {
             userFormRef.current.resetForm();
         }
 

@@ -33,7 +33,7 @@ if ! command -v docker &> /dev/null; then
 fi
 
 read -p "Deseja configurar as variaveis de ambiente? [Y/n]: " option
-if [[ $option == [yYsS] || -z $option ]] then
+if [[ $option == [yYsS] || -z $option ]]; then
   clear
 
   read -p "Informe o nome de usuário do banco de dados: " dbname
@@ -41,16 +41,16 @@ if [[ $option == [yYsS] || -z $option ]] then
   read -p "Informe uma senha para o JWT: " jwt
   read -p "Informe o seu dominio: " domain
 
-  if [ ! -d "/var/autoreserva/env" ]; then
-    mkdir -p /var/autoreserva/env
+  if [ ! -d "/etc/autoreserva/env" ]; then
+    mkdir -p /etc/autoreserva/env
   fi
 
-  configFolder="/var/autoreserva/env"
+  configFolder="/etc/autoreserva/env"
 
   echo "POSTGRES_USER=${dbname}" > "$configFolder/database.env"
   echo "POSTGRES_PASSWORD=${dbpasswd}" >> "$configFolder/database.env"
   echo "JWT_SECRET=${jwt}" > "$configFolder/api.env"
-  echo "DATABASE_URL=postgresql://${dbname}:${dbpasswd}@postgres-reserva:5432/reserva?schema=usuarios" >> "$configFolder/api.env"
+  echo "DATABASE_URL=postgresql://${dbname}:${dbpasswd}@postgres-reserva:5432/reserva?schema=users" >> "$configFolder/api.env"
   echo "SERVER_NAME=${domain}" >> "$configFolder/nginx.env"
 
   clear
@@ -58,12 +58,12 @@ if [[ $option == [yYsS] || -z $option ]] then
 fi
 
 read -p "Deseja configurar os certificados SSL? [Y/n]: " option
-if [[ $option == [yYsS] || -z $option ]] then
-  if [ ! -d "/var/autoreserva/keys" ]; then
-    mkdir -p /var/autoreserva/keys
+if [[ $option == [yYsS] || -z $option ]]; then
+  if [ ! -d "/etc/autoreserva/keys" ]; then
+    mkdir -p /etc/autoreserva/keys
   fi
 
-  file="/var/autoreserva/keys/domain"
+  file="/etc/autoreserva/keys/domain"
 
   echo "Informe o certificado ssl do seu dominio (ctr+d quando terminar):"
   while IFS= read -r line; do
@@ -77,7 +77,7 @@ if [[ $option == [yYsS] || -z $option ]] then
 
   clear
 
-  echo "Certificados salvos em /var/autoreserva/keys/"
+  echo "Certificados salvos em /etc/autoreserva/keys/"
 fi
 
 if ! systemctl is-active --quiet docker; then

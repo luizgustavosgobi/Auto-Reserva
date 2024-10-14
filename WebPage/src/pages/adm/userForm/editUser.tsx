@@ -3,6 +3,7 @@ import { UserFormSchemaData } from "@/utils/schemas";
 import UserForm from "@/components/UserForm";
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getToken } from "@/utils/token";
 
 function EditUser() {
     const navigate = useNavigate();
@@ -24,6 +25,7 @@ function EditUser() {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'Authentication': 'Bearer ' + getToken()
             },
             body: JSON.stringify({ ...data, accessCode })
         })
