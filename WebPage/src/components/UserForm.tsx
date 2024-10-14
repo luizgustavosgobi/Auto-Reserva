@@ -13,10 +13,8 @@ type UserFormProps = {
     onSubmit: (data: UserFormSchemaData) => void
 }
 
-type Role = "USER" | "ADMIN" | undefined;
-
 const UserForm = forwardRef(({ hasUserData, alertMessage, onSubmit }: UserFormProps, ref) => {
-    let name = '', prontuario = '', photo = '', role: Role = 'USER';
+    let name = '', prontuario = '', photo = '', role = 'USER';
 
     if (hasUserData) {
         const { state } = useLocation();
@@ -32,7 +30,7 @@ const UserForm = forwardRef(({ hasUserData, alertMessage, onSubmit }: UserFormPr
             name,
             prontuario,
             photo,
-            role: role === 'ADMIN' ? true : false
+            role: role === 'ADMIN'
         }
     });
 
