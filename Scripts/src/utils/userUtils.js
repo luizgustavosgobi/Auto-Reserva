@@ -8,7 +8,7 @@ export async function getUsers() {
       email: true,
       reciveEmails: true,
       funds: true,
-      Dias: {
+      days: {
         select: {
           reserve: true,
           daysOfWeek: true,
@@ -21,7 +21,7 @@ export async function getUsers() {
 }
 
 export function removeDayFromUser(user, day) {
-  const userDays = user.Dias
+  const userDays = user.days
 
   if (!userDays.extraDays?.includes(day) || !userDays.deletedDays?.includes(day)) {
     return
@@ -29,7 +29,7 @@ export function removeDayFromUser(user, day) {
 
   const deletedDays = userDays.deletedDays?.filter((deletedDay) => deletedDay != day)
   const extraDays = userDays.extraDays?.filter((extraDay) => extraDay != day)
-  prisma.dias.update({
+  prisma.days.update({
     where: { prontuario: user.prontuario },
     data: {
       deletedDays,

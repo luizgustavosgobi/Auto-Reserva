@@ -18,13 +18,13 @@ for (const user of await getUsers()) {
     continue
   }
 
-  const days = user.Dias;
+  const days = user.days;
 
   if (isDayToReserve(days)) {
     console.log(user.name + " - Reservando");
 
     const message = await reserve(user, false);
-
+    console.log(message)
     allReserves += user.name + " - " + message + "<br><br>";
 
     if (user.email && user.reciveEmails) {
@@ -37,3 +37,6 @@ for (const user of await getUsers()) {
 }
 
 sendEmail({ email: process.env.NODEMAILER_USER, name: "Admin" }, allReserves, { menu: true });
+
+console.log("\nReservas finalizadas!");
+console.log("---------------------------\n");

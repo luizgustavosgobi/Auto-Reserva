@@ -25,7 +25,7 @@ if ! command -v node &> /dev/null; then
 fi
 
 read -p "Deseja configurar as variaveis de ambiente? [Y/n]: " option
-if [[ $option == [yY] || -z $option ]] then
+if [[ $option == [yY] || -z $option ]]; then
   clear
   echo "Iniciando as configurações das variaveis de ambiente..."
   echo
