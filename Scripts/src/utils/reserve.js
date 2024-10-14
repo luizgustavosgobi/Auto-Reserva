@@ -25,7 +25,7 @@ export async function reserve(user, captcha) {
   if (!response || response.status !== 200) {
     return "Não foi possivel fazer na reserva!"
   }
-
+  
   const alert = new JSDOM(response.data).window.document.querySelectorAll(".alert")[0];
   const text = alert.textContent.split("\n")[2]
   return text.split("!")[1].trim()
