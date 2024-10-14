@@ -12,7 +12,7 @@ import styles from './styles/home.module.css';
 
 function Home() {
     useEffect(() => { document.title = 'Auto Reserva' }, [])
-    const { name, email, Dias } = useContext(UserContext);
+    const { name, email, days } = useContext(UserContext);
 
     const { setOpen } = useContext(OpenAlert);
     const [extraDays, setExtraDays] = useState<string[]>([]);
@@ -23,14 +23,14 @@ function Home() {
     const shortName = name?.split(' ');
 
     useEffect(() => {
-        if (Dias) {
-            const { daysOfWeek, extraDays, deletedDays, reserve } = Dias;
+        if (days) {
+            const { daysOfWeek, extraDays, deletedDays, reserve } = days;
             updateUserDays(daysOfWeek);
             setExtraDays(extraDays);
             setDeletedDays(deletedDays);
             setReserve(reserve);
         }
-    }, [Dias]);
+    }, [days]);
 
     const weekDaysList = [
         { id: 'Seg', name: 'Segunda' },
@@ -42,7 +42,7 @@ function Home() {
 
     const checkboxRefs = weekDaysList.map(() => useRef<HTMLInputElement | null>(null));
 
-    async function savePreferences({toggleReserve = false}: {toggleReserve: boolean}) {
+    async function savePreferences({toggleReserve = false}: {toggleReserve: boolean} = {toggleReserve: false}) {
         setIsSubmitting(true)
         setMessage(['', false])
 
@@ -153,7 +153,7 @@ function Home() {
                         <button
                             id={styles.saveButton}
                             disabled={isSubmitting || !reserve}
-                            onClick={() => savePreferences}
+                            onClick={() => savePreferences()}
                         >
                             {isSubmitting ? <div className={classes.loading}></div> : "Salvar"}
                         </button>

@@ -7,10 +7,10 @@ type User = {
     email?: string,
     role: "USER" | "ADMIN",
     reciveEmails: boolean,
-    Dias: Dias
+    days: Days
 }
 
-type Dias = {
+type Days = {
     prontuario: string,
     extraDays: string[],
     deletedDays: string[],
