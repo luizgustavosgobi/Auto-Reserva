@@ -30,7 +30,7 @@ const UserForm = forwardRef(({ hasUserData, alertMessage, onSubmit }: UserFormPr
             name,
             prontuario,
             photo,
-            role
+            role: role === 'ADMIN' ? true : false
         }
     });
 
