@@ -52,7 +52,7 @@ if [[ $option == [yY] || -z $option ]]; then
   echo "DATABASE_URL='postgresql://$dbName:$dbPasswd@127.0.0.1:5432/reserva?schema=users'" >> $configFile
   echo "PAGE_URL='$pageURL'" >> $configFile
   echo "TWOCAPTCHA_APIKEY='$TwoCaptcha'" >> $configFile
-  echo "NODE_PATH='$(which node)'"
+  echo "NODE_PATH='$(which node)'" >> $configFile
 
   clear
   echo "Configurações salvas em $configFile"
