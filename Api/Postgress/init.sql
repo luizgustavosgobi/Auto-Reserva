@@ -1,6 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS "users";
 
-CREATE TYPE IF NOT EXISTS "users"."Role" AS ENUM ('USER', 'ADMIN');
+CREATE TYPE "users"."Role" AS ENUM ('USER', 'ADMIN');
 
 CREATE TABLE IF NOT EXISTS "users"."user" (
   "prontuario" TEXT NOT NULL,

@@ -31,7 +31,7 @@ if [[ $option == [yY] || -z $option ]]; then
   echo
 
   read -p "Informe o nome de usuário do banco de dados: " dbName
-  read -p "Informe a senha para ${dbName}: " dbPasswd
+  read -p "Informe a senha para $dbName: " dbPasswd
   read -p "Informe o email para mandar as notificações: " nodemailerUser
   read -p "Informe a senha do email $nodemailerUser: " nodemailerPasswd
   read -p "Informe o dominio do seu provedor de email (google: smtp.gmail.com): " nodemailerHost
@@ -45,27 +45,27 @@ if [[ $option == [yY] || -z $option ]]; then
 
   configFile="/etc/autoreserva/env/script.env"
   
-  echo "NODEMAILER_HOST=$nodemailerHost" > $configFile
-  echo "NODEMAILER_PORT=$nodemailerPort" >> $configFile
-  echo "NODEMAILER_USER=$nodemailerUser" >> $configFile
-  echo "NODEMAILER_PASS=$nodemailerPasswd" >> $configFile
-  echo "DATABASE_URL=postgresql://$dbName:$dbPasswd@127.0.0.1:5432/reserva?schema=usuarios" >> $configFile
-  echo "PAGE_URL=${pageURL}" >> $configFile
-  echo "TWOCAPTCHA_APIKEY=${TwoCaptcha}" >> $configFile
+  echo "NODEMAILER_HOST='$nodemailerHost'" > $configFile
+  echo "NODEMAILER_PORT='$nodemailerPort'" >> $configFile
+  echo "NODEMAILER_USER='$nodemailerUser'" >> $configFile
+  echo "NODEMAILER_PASS='$nodemailerPasswd'" >> $configFile
+  echo "DATABASE_URL='postgresql://$dbName:$dbPasswd@127.0.0.1:5432/reserva?schema=users'" >> $configFile
+  echo "PAGE_URL='$pageURL'" >> $configFile
+  echo "TWOCAPTCHA_APIKEY='$TwoCaptcha'" >> $configFile
+  echo "NODE_PATH='$(which node)'"
 
   clear
   echo "Configurações salvas em $configFile"
 fi
 
-DIR="$(dirname "$0")"
+DIR="$(realpath "$(dirname "$0")")"
 currentDir="${pwd}"
 
 cd "$DIR"
 npm i
 
-if ! grep "bash $DIR/exec.sh" "/etc/crontab"
-then
-  sudo sh -c "echo '0 10  ** 1-5 root  bash $DIR/exec.sh' >> /etc/crontab"
+if ! grep "bash $DIR/exec.sh" "/etc/crontab"; then
+  sudo echo "0 10   * * 1-5 root    bash $DIR/exec.sh" >> /etc/crontab
 fi
 
 clear
