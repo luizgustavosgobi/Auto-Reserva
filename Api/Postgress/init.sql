@@ -1,11 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS "users";
 
-DO $$
-BEGIN
-  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'Role') THEN
-    CREATE TYPE "users"."Role" AS ENUM ('USER', 'ADMIN');
-  END IF;
-END $$;
+CREATE TYPE "users"."Role" AS ENUM ('USER', 'ADMIN');
 
 CREATE TABLE IF NOT EXISTS "users"."user" (
   "prontuario" TEXT NOT NULL,

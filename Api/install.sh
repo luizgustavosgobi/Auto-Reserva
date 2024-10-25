@@ -37,7 +37,7 @@ if [[ $option == [yYsS] || -z $option ]]; then
   clear
 
   read -p "Informe o nome de usuário do banco de dados: " dbname
-  read -p "Informe a senha para ${dbname} (8+ digitos): " dbpasswd
+  read -p "Informe a senha para $dbname (8+ digitos): " dbpasswd
   read -p "Informe uma senha para o JWT: " jwt
   read -p "Informe o seu dominio: " domain
 
@@ -47,11 +47,11 @@ if [[ $option == [yYsS] || -z $option ]]; then
 
   configFolder="/etc/autoreserva/env"
 
-  echo "POSTGRES_USER=${dbname}" > "$configFolder/database.env"
-  echo "POSTGRES_PASSWORD=${dbpasswd}" >> "$configFolder/database.env"
-  echo "JWT_SECRET=${jwt}" > "$configFolder/api.env"
-  echo "DATABASE_URL=postgresql://${dbname}:${dbpasswd}@postgres-reserva:5432/reserva?schema=users" >> "$configFolder/api.env"
-  echo "SERVER_NAME=${domain}" >> "$configFolder/nginx.env"
+  echo "POSTGRES_USER='$dbname'" > "$configFolder/database.env"
+  echo "POSTGRES_PASSWORD='$dbpasswd'" >> "$configFolder/database.env"
+  echo "JWT_SECRET='$jwt'" > "$configFolder/api.env"
+  echo "DATABASE_URL='postgresql://$dbname:$dbpasswd@postgres-reserva:5432/reserva?schema=users'" >> "$configFolder/api.env"
+  echo "SERVER_NAME='$domain'" >> "$configFolder/nginx.env"
 
   clear
   echo "Configurações salvas em $configFolder/"
