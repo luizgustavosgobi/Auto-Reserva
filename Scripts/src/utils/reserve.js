@@ -11,7 +11,7 @@ export async function reserve(user, captcha) {
   let response;
   for (let i=0; i<3;i++) {
     try {
-      response = await makeReserve(captchaToken)
+      response = await makeReserve(user, captchaToken)
       break
     } catch (err) {
       if (i < 2) {
