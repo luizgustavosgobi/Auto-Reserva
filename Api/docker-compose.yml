@@ -18,7 +18,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - db_data:/etc/lib/postgresql/data
+      - /etc/autoreserva/postgresql:/var/lib/postgresql/data:rw
     environment:
       - POSTGRES_DB=reserva
     env_file:
@@ -38,6 +38,3 @@ services:
       - PORT=3000
     env_file:
       - /etc/autoreserva/env/api.env
-
-volumes:
-  db_data:

@@ -1,17 +1,17 @@
 import { JSDOM } from "jsdom";
 import { getSolvedCaptcha } from './capthcaSolver.js';
-import { csrftoken, websiteKey } from "./variables.js";
+import { csrftoken } from "./variables.js";
 
 import axios from "axios";
 import qs from "querystring";
 import 'dotenv/config';
 
-export async function reserve(user, captcha) {
-  const captchaToken = captcha ? getSolvedCaptcha() : "";
+export async function reserveHandler(user, captcha) {
+  const captchaToken = captcha ? await getSolvedCaptcha() : "";
   let response;
   for (let i=0; i<3;i++) {
     try {
-      response = await makeReserve(captchaToken)
+      response = await reserve(user, captchaToken)
       break
     } catch (err) {
       if (i < 2) {
@@ -31,7 +31,7 @@ export async function reserve(user, captcha) {
   return text.split("!")[1].trim()
 }
 
-async function makeReserve(user, captcha) {
+async function reserve(user, captcha) {
   return await axios.post(process.env.PAGE_URL+'/home',
     qs.stringify({
       csrfmiddlewaretoken: csrftoken.split("=")[1],
