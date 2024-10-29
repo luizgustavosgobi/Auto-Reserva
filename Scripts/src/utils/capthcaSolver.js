@@ -1,7 +1,8 @@
 import axios from "axios";
+import { websiteKey } from "./variables.js"
 import 'dotenv/config';
 
-async function createTask(websiteKey) {
+async function createTask() {
   const response = await axios.post('https://api.2captcha.com/createTask', {
     clientKey: process.env.TWOCAPTCHA_APIKEY,
     task: {
@@ -14,8 +15,10 @@ async function createTask(websiteKey) {
   return response.data.taskId;
 }
 
-export async function getSolvedCaptcha(websiteKey) {
-  let taskId = await createTask(websiteKey)
+export async function getSolvedCaptcha() {
+  let taskId = await createTask()
+  console.log("Resolvendo Captcha: " + taskId);
+
   let captcha = undefined
   while (captcha == undefined) {
     const response = await axios.post(`https://api.2captcha.com/getTaskResult`, {
@@ -26,6 +29,7 @@ export async function getSolvedCaptcha(websiteKey) {
     if (response.data.errorId !== 0) {
       taskId = await createTask(websiteKey)
     }
+
     captcha = response.data.solution?.gRecaptchaResponse
   }
 

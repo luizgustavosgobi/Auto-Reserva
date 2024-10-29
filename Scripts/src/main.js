@@ -2,7 +2,7 @@ import "./utils/variables.js"
 
 import { isDayToReserve } from "./utils/dayUtils.js";
 import { getUsers, subtractFounds, removeDayFromUser } from "./utils/userUtils.js"
-import { reserve } from "./utils/reserve.js"
+import { reserveHandler } from "./utils/reserve.js"
 import { sendEmail } from "./utils/email.js"
 import { captchaValue, dayToReserveStr } from "./utils/variables.js";
 
@@ -23,8 +23,8 @@ for (const user of await getUsers()) {
   if (isDayToReserve(days)) {
     console.log(user.name + " - Reservando");
 
-    const message = await reserve(user, false);
-    console.log(message)
+    const message = await reserveHandler(user, false);
+    console.log(message + "\n")
     allReserves += user.name + " - " + message + "<br><br>";
 
     if (user.email && user.reciveEmails) {
