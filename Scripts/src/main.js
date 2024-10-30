@@ -23,7 +23,7 @@ for (const user of await getUsers()) {
   if (isDayToReserve(days)) {
     console.log(user.name + " - Reservando");
 
-    const message = await reserveHandler(user, true);
+    const message = await reserveHandler(user, false);
     console.log(message + "\n")
     allReserves += user.name + " - " + message + "<br><br>";
 
