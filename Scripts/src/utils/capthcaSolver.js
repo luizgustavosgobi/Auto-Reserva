@@ -19,6 +19,7 @@ export async function getSolvedCaptcha() {
   let taskId = await createTask()
   console.log("Resolvendo Captcha: " + taskId);
 
+  let attempts = 0
   let captcha = undefined
   while (captcha == undefined) {
     const response = await axios.post(`https://api.2captcha.com/getTaskResult`, {
@@ -27,11 +28,19 @@ export async function getSolvedCaptcha() {
     });
 
     if (response.data.errorId !== 0) {
-      taskId = await createTask(websiteKey)
+      if (attempts < 1) {
+        console.log("Falha ao responder o captcha, tentando novamente!");
+        taskId = await createTask(websiteKey)
+        attempts += 1
+      } else {
+        console.log("Falha ao responder o captcha! Limites de tentativas exedido!");
+        return ""
+      }
     }
-
+  
     captcha = response.data.solution?.gRecaptchaResponse
   }
 
+  console.log("Captcha resolvido com sucesso!");
   return captcha;
 }
