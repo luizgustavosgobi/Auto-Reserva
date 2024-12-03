@@ -37,7 +37,13 @@ if [[ $option == [yY] || -z $option ]]; then
   read -p "Informe o dominio do seu provedor de email (google: smtp.gmail.com): " nodemailerHost
   read -p "Informe a porta do provedor de email (google: 587): " nodemailerPort
   read -p "Informe a URL do sica de seu campus: " pageURL
-  read -p "Informe a chave de API do TwoCaptcha caso necessário: " TwoCaptcha
+  read -p "O SICA de seu campus utiliza captcha? [y/N]: " hasCaptcha
+  if [[ $hasCaptcha == [yY] ]]; then
+    $hasCaptcha="true"
+    read -p "Informe a chave de API do TwoCaptcha: " TwoCaptcha
+  else
+    $hasCaptcha="false"
+  fi
 
   if [ ! -d "/etc/autoreserva/env" ]; then
     mkdir -p /etc/autoreserva/env
@@ -51,6 +57,7 @@ if [[ $option == [yY] || -z $option ]]; then
   echo "NODEMAILER_PASS='$nodemailerPasswd'" >> $configFile
   echo "DATABASE_URL='postgresql://$dbName:$dbPasswd@127.0.0.1:5432/reserva?schema=users'" >> $configFile
   echo "PAGE_URL='$pageURL'" >> $configFile
+  echo "HAS_CAPTCHA='$hasCaptcha'">> $configFile
   echo "TWOCAPTCHA_APIKEY='$TwoCaptcha'" >> $configFile
   echo "NODE_PATH='$(which node)'" >> $configFile
 

@@ -23,7 +23,7 @@ for (const user of await getUsers()) {
   if (isDayToReserve(days)) {
     console.log(user.name + " - Reservando");
 
-    const message = await reserveHandler(user, true);
+    const message = await reserveHandler(user);
     console.log(message + "\n")
     allReserves += user.name + " - " + message + "<br><br>";
 
@@ -34,6 +34,8 @@ for (const user of await getUsers()) {
     subtractFounds(user, captchaValue)
   }
   removeDayFromUser(user, dayToReserveStr);
+
+  await new Promise(resolve => setTimeout(resolve, 1000));
 }
 
 sendEmail({ email: process.env.NODEMAILER_USER, name: "Admin" }, allReserves, { menu: true });
