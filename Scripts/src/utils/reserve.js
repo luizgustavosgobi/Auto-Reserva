@@ -6,8 +6,9 @@ import axios from "axios";
 import qs from "querystring";
 import 'dotenv/config';
 
-export async function reserveHandler(user, captcha) {
-  const captchaToken = captcha ? await getSolvedCaptcha() : "";
+export async function reserveHandler(user) {
+  const captchaToken = process.env.HAS_CAPTCHA === 'true' ? await getSolvedCaptcha() : "";
+
   let response;
   for (let i=0; i<3;i++) {
     try {

@@ -22,6 +22,8 @@ export async function getSolvedCaptcha() {
   let attempts = 0
   let captcha = undefined
   while (captcha == undefined) {
+    await new Promise(resolve => setTimeout(resolve, 5000));
+    
     const response = await axios.post(`https://api.2captcha.com/getTaskResult`, {
       clientKey: process.env.TWOCAPTCHA_APIKEY,
       taskId

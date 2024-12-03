@@ -84,15 +84,15 @@ No script, você pode utilizar a mesma VPS da API.
    $ bash ./install.sh
    ```
 
-2. Se caso tenha que usar o **2Captcha**, você deve alterar na linha 23 do **src/main.js** para:
+2. Se caso não precise usar o **2Captcha**, você deve alterar na linha 23 do **src/main.js** para:
 
    ```js
-   const message = await reserve(user, true);
+   const message = await reserve(user, false);
    ```
    ao invés de:
 
    ```js
-   const message = await reserve(user, false);
+   const message = await reserve(user, true);
    ```
 
 </details>
