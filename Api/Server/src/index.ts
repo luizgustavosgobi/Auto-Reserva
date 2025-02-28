@@ -16,7 +16,7 @@ export const app = fastify({
         customOptions: {
             allErrors: true
         },
-    }
+    },
 })
 
 app.register(jwt, {

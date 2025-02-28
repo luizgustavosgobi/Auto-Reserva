@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
 import { verifyToken } from "../lib/verifyToken";
 import { firstAccessSchema, loginSchema, tokenSchema } from "../lib/schemas";
+import { handleToken } from "./preHandlers";
 import bcrypt from 'bcrypt'
 
 export async function login(app: FastifyInstance) {
@@ -11,7 +12,7 @@ export async function login(app: FastifyInstance) {
     const user = await prisma.user.findUnique({
       where: {
         prontuario
-      }, 
+      },
       select: {
         password: true,
       }
@@ -31,7 +32,7 @@ export async function login(app: FastifyInstance) {
 
   app.post('/accounts/firstAccess', { schema: firstAccessSchema }, async (req, res) => {
     const { prontuario, accessCode, password } = req.body as { prontuario: string, accessCode: string, password: string }
-  
+
     const user = await prisma.user.findUnique({
       where: {
         prontuario
@@ -42,7 +43,7 @@ export async function login(app: FastifyInstance) {
     }).catch(() => { return res.status(500).send({ message: 'Internal Server Error' }) })
 
     if (!user) return res.status(401).send({ message: 'Usuário inexistente' })
-    if (user?.accessCode !== accessCode) { return res.status(401).send({ message: 'Informações Incorretas' }) }
+    if (user?.accessCode !== accessCode) { return res.status(400).send({ message: 'Informações Incorretas' }) }
 
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(password, salt, async (err, hash) => {
@@ -64,13 +65,11 @@ export async function login(app: FastifyInstance) {
 }
 
 export async function validateToken(app: FastifyInstance) {
-  app.get('/user/validate', {schema: tokenSchema}, async (req, res) => {
-    const token = req.headers.authorization?.replace('Bearer ', '') as string
+  app.get('/user/validate', { schema: tokenSchema, preHandler: handleToken }, async (req, res) => {
 
-    const user = verifyToken(token)
     return await prisma.user.findUnique({
       where: {
-        prontuario: user.prontuario
+        prontuario: req.userData?.prontuario
       },
       select: {
         name: true,
@@ -78,7 +77,7 @@ export async function validateToken(app: FastifyInstance) {
         photo: true,
         role: true,
         email: true,
-        reciveEmails: true,
+        receiveEmails: true,
         funds: true,
         days: {
           select: {

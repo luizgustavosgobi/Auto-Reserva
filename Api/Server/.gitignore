@@ -21,7 +21,7 @@ prisma/dev.db*
 
 # .env Files
 *.env*
-
+!.env.example
 
 #build files
 dist/

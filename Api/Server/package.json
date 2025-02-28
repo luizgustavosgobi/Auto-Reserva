@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsup src/",
     "start": "node dist/index.js",
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx watch --env-file .env src/index.ts",
     "migrateDB": "npx prisma db pull && npx prisma generate"
   },
   "author": "Luiz Gustavo Sgobi",
