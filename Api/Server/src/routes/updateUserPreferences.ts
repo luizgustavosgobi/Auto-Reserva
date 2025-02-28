@@ -1,48 +1,49 @@
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
-import { verifyToken } from "../lib/verifyToken";
-import { userPreferencesSchema, updateUserEmailSchema} from "../lib/schemas";
+import { handleToken } from "./preHandlers";
+import { userPreferencesSchema, updateUserEmailSchema } from "../lib/schemas";
 
 export async function updateUserPreferences(app: FastifyInstance) {
-    app.put('/user/preferences', { schema: userPreferencesSchema }, async (req, res) => {
-        const { daysOfWeek, deletedDays, extraDays, reserve } = req.body as { daysOfWeek: string[], deletedDays: string[], extraDays: string[], reserve: boolean }
-        const token = req.headers.authorization?.replace('Bearer ', '') as string
-
-        const user = verifyToken(token)
-        if (user == -1) return res.status(500).send({ message: "Invalid Token" })
+    app.put('/user/preferences', { schema: userPreferencesSchema, preHandler: handleToken }, async (req, res) => {
+        const { daysOfWeek, deletedDays, extraDays, reserve } = req.body as {
+            daysOfWeek: string[];
+            deletedDays: string[];
+            extraDays: string[];
+            reserve: boolean;
+        };
 
         await prisma.days.update({
             where: {
-                prontuario: user.prontuario
+                prontuario: req.userData?.prontuario,
             },
             data: {
                 reserve,
                 extraDays,
                 deletedDays,
-                daysOfWeek
-            }
-        }).catch((e) => { return res.status(500).send({ message: 'Internal Server Error' }) })
+                daysOfWeek,
+            },
+        }).catch(() => {
+            return res.status(500).send({ message: 'Internal Server Error' });
+        });
 
-        return res.status(200).send({ message: 'Atualizado com Sucesso' })
-    })
+        return res.status(200).send({ message: 'Atualizado com sucesso' });
+    });
 
-    app.put('/user/updateEmail', { schema: updateUserEmailSchema}, async (req, res) => {
-        const { email, reciveEmails } = req.body as { email: string, reciveEmails: boolean }
-        const token = req.headers.authorization?.replace('Bearer ', '') as string
-
-        const user = verifyToken(token)
-        if (user == -1) return res.status(500).send({ message: "Invalid Token" })
+    app.put('/user/updateEmail', { schema: updateUserEmailSchema, preHandler: handleToken }, async (req, res) => {
+        const { email, receiveEmails } = req.body as { email: string; receiveEmails: boolean };
 
         await prisma.user.update({
             where: {
-                prontuario: user.prontuario
+                prontuario: req.userData?.prontuario,
             },
             data: {
                 email,
-                reciveEmails
-            }
-        }).catch((e) => { return res.status(500).send({ message: 'Internal Server Error' }) })
+                receiveEmails,
+            },
+        }).catch(() => {
+            return res.status(500).send({ message: 'Internal Server Error' });
+        });
 
-        return res.status(200).send({ message: 'Atualizado com Sucesso' })
-    })
+        return res.status(200).send({ message: 'Atualizado com sucesso' });
+    });
 }

@@ -110,9 +110,9 @@ export const updateUserEmailSchema = {
     type: 'object',
     properties: {
       email: { type: 'string', format: 'email' },
-      reciveEmails: { type: 'boolean' },
+      receiveEmails: { type: 'boolean' },
     },
-    required: ['email', 'reciveEmails'],
+    required: ['email', 'receiveEmails'],
     additionalProperties: false
   },
 
@@ -138,7 +138,7 @@ export const foundsSchema = {
   body: {
     type: 'object',
     properties: {
-      amount: {type: 'number'}
+      amount: { type: 'number' }
     },
     required: ['amount'],
     additionalProperties: false
