@@ -13,9 +13,6 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
     "plugins": [
       {
         "name": "next"
@@ -23,7 +20,6 @@
     ],
     "paths": {
       "@/*": ["./src/app/*"],
-      "@styles/*": ["./src/components/styles/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

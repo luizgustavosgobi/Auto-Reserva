@@ -4,13 +4,11 @@ import { Form } from "@/components/Form";
 import { userSchema, UserSchemaData } from "@/utils/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { KeyRound, User } from 'lucide-react';
-import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 
 export default function Register() {
-    useEffect(() => { document.title = 'Auto Reserva | Cadastro' }, []);
     const router = useRouter();
 
     async function AddUser(data: UserSchemaData) {
