@@ -8,7 +8,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useSidebar } from "@/components/ui/sidebar";
-import logo from "@/assets/ifspCTDLogo.png";
+import Image from "next/image";
+import logo from "../public/images/ifspCTDLogo.png";
 
 function Header() {
   const pathname = usePathname();
@@ -31,10 +32,12 @@ function Header() {
         )}
 
         <div className="m-auto flex items-center max-sm:m-0">
-          <img
-            src={logo.src}
+          <Image
+            src={logo}
             alt="Logo IFSP"
             className="max-w-[4.75rem] object-cover"
+            width={120}
+            height={120}
           />
           {pathname.startsWith("/adm") ? (
             <h1 className="text-center text-[xx-large] font-bold max-sm:text-[20px]">
