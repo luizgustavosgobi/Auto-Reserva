@@ -9,6 +9,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import type User from "./utils/types/User";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import iconweb from "./assets/iconWEB.png"
 import "./globals.css";
 
 export const UserContext = createContext<User | null>(null);
@@ -17,7 +18,7 @@ function StructureApp({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <>
       <title>Auto Reserva</title>
-      <link rel="icon" type="image/png" href="./public/images/iconWEB.png" />
+      <link rel="icon" type="image/png" href={iconweb.src} />
       <meta name="robots" content="noindex" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 

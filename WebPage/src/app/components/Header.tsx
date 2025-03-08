@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useSidebar } from "@/components/ui/sidebar";
 import Image from "next/image";
-import logo from "../public/images/ifspCTDLogo.png";
+import logo from "../assets/ifspCTDLogo.png";
 
 function Header() {
   const pathname = usePathname();
