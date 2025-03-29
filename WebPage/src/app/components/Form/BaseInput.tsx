@@ -29,10 +29,10 @@ export default function BaseInput({
 
   return (
     <div className="mb-4 grid">
-      <label className="font-bold; self-start text-lg text-gray-100">
+      <label className="font-bold self-start text-lg text-gray-100">
         {nameAndLabel[1]}
       </label>
-      <div className="relative flex items-center max-sm:w-[16.5rem]">
+      <div className="relative flex items-center w-full max-sm:w-[16.5rem]">
         {Icon && (
           <Icon
             size={35}
@@ -45,7 +45,7 @@ export default function BaseInput({
           placeholder={
             nameAndLabel[0] === "prontuario" ? "Identifier" : placeholder
           }
-          className="w-80 rounded-lg border-none bg-gray-400 p-2 pl-10 text-[large] font-thin text-gray-50 placeholder-gray-200 caret-purple-300 focus:outline focus:outline-gray-50 max-sm:w-[16.5rem]"
+          className={`${nameAndLabel[0].toLowerCase().includes("password") ? "pr-[2.5rem]" : ""} w-80 rounded-lg border-none bg-gray-400 p-2 pl-10 text-[large] font-thin text-gray-50 placeholder-gray-200 caret-purple-300 focus:outline focus:outline-gray-50 max-sm:w-[16.5rem]`}
           {...register(nameAndLabel[0])}
         />
         {children}
